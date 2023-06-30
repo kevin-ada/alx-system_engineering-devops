@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#Script to write hi in 9th index
 
 count=0
 
