@@ -1,45 +1,24 @@
-# Install Nginx package
-package { 'nginx':
-    ensure => installed,
+# Script to install nginx using puppet
+
+package {'nginx':
+	  ensure => 'present',
 }
 
-# Start and enable Nginx service
-service { 'nginx':
-    ensure        => running,
-        enable    => true,
-          require => Package['nginx'],
+exec {'install':
+	  command  => 'sudo apt-get update ; sudo apt-get -y install nginx',
+		     provider => shell,
 }
 
-# Create Nginx configuration file
-file { '/etc/nginx/sites-available/default':
-    ensure         => file,
-    content        => '
-		server {
-		             listen 80;
-			server_name _;
-			 location / {
-			   return 301 http://$host/redirect_me;
-				     }
-			    location /redirect_me {
-						           return 301 http://$host/;
-								             }
-							           }
-	    ',
-          require  => Package['nginx'],
-            notify => Service['nginx'],
+exec {'Holberton':
+	  command  => 'echo "Holberton School" | sudo tee /var/www/html/index.html',
+		     provider => shell,
 }
 
-# Delete the default Nginx configuration symlink
-file { '/etc/nginx/sites-enabled/default':
-    ensure      => absent,
-       require  => File['/etc/nginx/sites-available/default'],
-         notify => Service['nginx'],
-}
-# Create the root content
-file { '/var/www/html/index.html':
-    ensure         => file,
-        content    => 'Hello World!',
-          require  => Package['nginx'],
-            notify => Service['nginx'],
+exec {'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/www.youtube.com\/;\\n\\t}/" /etc/nginx/sites-available/default':
+	  provider => shell,
 }
 
+exec {'run':
+	  command  => 'sudo service nginx restart',
+		     provider => shell,
+}
