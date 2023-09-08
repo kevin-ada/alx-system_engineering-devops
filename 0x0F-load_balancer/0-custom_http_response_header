@@ -1,23 +1,27 @@
-# Double the num of webserver
+#!/usr/bin/env bash
 
-sudo apt-get -y update
+# custom header to nginx config
+
+sudo apt-get update
 sudo apt-get -y install nginx
-sudo ufw allow  'Nginx HTTP'
-sudo mkdir -p /var/ww/html /var/www/error
+sudo mkdir -p /var/www/html /var/www/error
 sudo chmod -R 755 /var/www
+echo "Hello World!" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+
 server_config=\
 "server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
+	index index.html index.htm index.nginx-debian.html
 	server_name_;
 	add_header X-Served-By \$hostname;
 	location / {
-		try_files \$url \$uri/ =404;
+			try_files \$uri/ =404;
 	}
 	if (\$request_filename ~ redirect_me){
-		rewrite ^ https://youtube.com permanent;
+		rewrite ^ https://github.com permanent;
 	}
 	error_page 404 /404.html;
 	location = /404.html {
