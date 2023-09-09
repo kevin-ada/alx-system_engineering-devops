@@ -35,7 +35,7 @@ defaults
 
 frontend http_front
 	bind *:80
-	bind *:443 ssl crt /etc/letsencrypt/
+	bind *:443 ssl crt /etc/letsencrypt/keys/0000_key-certbot.pem
 	redirect scheme https code 301 if !{ssl-fc}
 	default-backend http_back
 
