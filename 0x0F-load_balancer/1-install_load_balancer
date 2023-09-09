@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#installs nginx server
+
+sudo service haproxy stop
+sudo apt-get purge -y haproxy
+
+sudo apt update
+sudo apt install -y haproxy
+
+sudo sed -i '$aENABLED=1' /etc/default/haproxy
+
+sudo sed -i '$a\
+	frontend http_front\n\
+	    bind *:80\n\
+	    stats uri /haproxy?stats\n\
+		 default_backend http_back\n\
+		    \n\
+	backend http_back\n\
+		  balance roundrobin\n\
+		  server 226884-web-01 54.227.128.78:80 check\n\
+		 server 226884-web-02 54.80.207.49:80 check'/etc/haproxy/haproxy.cfg
+
+sudo service haproxy restart
