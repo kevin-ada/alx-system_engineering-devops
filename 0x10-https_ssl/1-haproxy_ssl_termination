@@ -35,11 +35,11 @@ defaults
 
 frontend http_front
 	bind *:80
-	bind *:443 ssl crt /etc/ssl/www.kimcodes.tech/www.kimcodes.tech.pem
+	bind *:443 ssl crt /etc/letsencrypt/www.kimcodes.tech/www.kimcodes.tech.pem
 	redirect scheme https code 301 if !{ssl-fc}
 	default-backend http_back
 
 backend http_back
 	balance roundrobin
 	server 226884-web-01 54.227.128.78:80 check
-	server 226884-web-02 54.80.207.49;80 check
+	server 226884-web-02 54.80.207.49:80 check
