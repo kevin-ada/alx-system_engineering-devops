@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-# custom header to nginx config
+#custom header to nginx config
 
 sudo apt-get update
 sudo apt-get -y install nginx
