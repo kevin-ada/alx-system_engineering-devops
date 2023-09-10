@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Confiugring web server
+rm /etc/nginx/sites-enabled/default
 
-sudo sed -i 's/sites-enabled/sites-available/' /etc/nginx/nginx.conf
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
 sudo service nginx restart
