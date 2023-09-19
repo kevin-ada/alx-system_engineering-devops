@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# The command should be run but not as a user
+
+sudo  -u "$1"  whoami
