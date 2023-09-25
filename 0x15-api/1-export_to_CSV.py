@@ -32,8 +32,6 @@ if __name__ == '__main__':
     csvfile = idEmp + '.csv'
 
     with open(csvfile, 'w', newline='') as file:
-        conv_file = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
+        conv = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
         for i in json_req:
-            conv_file.writerow([idEmp, usr, i.get('completed'), i.get('title')])    
-
-
+            conv.writerow([idEmp, usr, i.get('completed'), i.get('title')])
